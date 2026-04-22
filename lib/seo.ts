@@ -1,8 +1,39 @@
 // Central SEO configuration — edit once, updates everywhere.
+import type { Metadata } from "next";
 
 export const SITE_URL = "https://patronerkekkuaforu.com";
 export const PHONE = "+905535737992";
 export const WHATSAPP = "905535737992";
+
+export const SOCIALS = {
+  instagram: "https://www.instagram.com/patronkuafor/",
+  facebook: "https://www.facebook.com/patronkuafor",
+  googleMaps: "https://www.google.com/maps?cid=7035655077473899502",
+} as const;
+
+// Business hours — single source of truth.
+// Footer & JSON-LD both read from here.
+export const HOURS = {
+  weekdayTr: "Pzt – Cmt",
+  weekdayEn: "Mon – Sat",
+  weekday: "10:00 – 21:00",
+  sundayTr: "Pazar",
+  sundayEn: "Sunday",
+  sunday: "11:00 – 19:00",
+  // For schema.org OpeningHoursSpecification
+  schema: [
+    {
+      dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+      opens: "10:00",
+      closes: "21:00",
+    },
+    {
+      dayOfWeek: "Sunday",
+      opens: "11:00",
+      closes: "19:00",
+    },
+  ],
+} as const;
 
 export const BUSINESS = {
   name: "Patron Erkek Kuaförü",
@@ -15,17 +46,11 @@ export const BUSINESS = {
   latitude: 38.4699,
   longitude: 27.2216,
   priceRange: "₺₺₺",
-  image: `${SITE_URL}/images/kapak-on.jpg`,
+  image: `${SITE_URL}/images/craftsman.jpg`,
   logo: `${SITE_URL}/images/logo.png`,
-  ogImage: `${SITE_URL}/images/og-cover.jpg`,
-  openingHours: [
-    "Mo-Sa 10:00-21:00",
-    "Su 11:00-19:00",
-  ],
-  sameAs: [
-    "https://www.instagram.com/patronerkekkuaforu",
-    "https://www.google.com/maps?cid=7035655077473899502",
-  ],
+  // Fallback to craftsman.jpg until a dedicated 1200x630 og-cover.jpg is shipped.
+  ogImage: `${SITE_URL}/images/craftsman.jpg`,
+  sameAs: [SOCIALS.instagram, SOCIALS.facebook, SOCIALS.googleMaps],
   aggregateRating: { ratingValue: "5.0", reviewCount: 180 },
 } as const;
 
@@ -56,12 +81,10 @@ export const KEYWORDS_EN = [
 type PageMeta = {
   title: string;
   description: string;
-  path: string;      // leading slash, e.g. "/hakkimizda"
+  path: string; // leading slash, e.g. "/hakkimizda"
   locale?: "tr" | "en";
   image?: string;
 };
-
-import type { Metadata } from "next";
 
 export function buildMeta({
   title,
@@ -104,3 +127,58 @@ export function buildMeta({
     },
   };
 }
+
+// FAQ content for both the rendered section and the FAQPage schema.
+export const FAQS_TR = [
+  {
+    q: "Randevusuz gelebilir miyim?",
+    a: "Patron, kişiye özel zaman ayrıldığı için randevusuz çalışmaz. WhatsApp'tan birkaç saniye içinde randevu ayarlayabilirsiniz.",
+  },
+  {
+    q: "Bir kesim ortalama ne kadar sürüyor?",
+    a: "Saç-sakal kesim 60–75 dakika sürer. Damat paketi 2,5 saate kadar uzayabilir. Size ayrılan süre size özeldir, sıkıştırılmaz.",
+  },
+  {
+    q: "Fiyatlar neden sabit yazılı?",
+    a: "Şeffaflık prensibimiz. Tüm fiyatlar önceden açıkça yayımlanır, koltuğa oturduğunuzda sürpriz yaşamazsınız.",
+  },
+  {
+    q: "Hangi ürünleri kullanıyorsunuz?",
+    a: "Davines organik saç bakım serisi, İtalyan aftershaveler ve medikal cilt bakım ekipmanlarıyla çalışıyoruz.",
+  },
+  {
+    q: "Ödeme seçenekleri neler?",
+    a: "Nakit ve kredi kartı kabul ediyoruz. Hediye çeki ve kurumsal paket için WhatsApp'tan ayrıca bilgi alabilirsiniz.",
+  },
+  {
+    q: "Çocuk kesimi yapıyor musunuz?",
+    a: "10 yaş ve üstü için, ebeveyn eşliğinde kesim uyguluyoruz. Konforlu bir randevu için lütfen önceden bildirin.",
+  },
+];
+
+export const FAQS_EN = [
+  {
+    q: "Can I walk in without an appointment?",
+    a: "Patron reserves a personal time slot for every guest, so we don't take walk-ins. You can book in seconds via WhatsApp.",
+  },
+  {
+    q: "How long does a session take?",
+    a: "A hair-and-beard session takes 60–75 minutes. The groom package can extend to 2.5 hours. Your time is yours — never rushed.",
+  },
+  {
+    q: "Why are prices fixed and visible?",
+    a: "Transparency is a core principle. All prices are published up front so you never face surprises in the chair.",
+  },
+  {
+    q: "Which products do you use?",
+    a: "We work with the Davines organic hair-care line, Italian aftershaves, and medical-grade skin-care equipment.",
+  },
+  {
+    q: "What payment options do you accept?",
+    a: "Cash and credit card. For gift vouchers and corporate packages, please reach us on WhatsApp.",
+  },
+  {
+    q: "Do you cut children's hair?",
+    a: "Ages 10 and up, accompanied by a parent. Please let us know in advance for a comfortable session.",
+  },
+];

@@ -1,4 +1,4 @@
-import { BUSINESS, SITE_URL } from "./seo";
+import { BUSINESS, SITE_URL, HOURS, FAQS_TR } from "./seo";
 
 export function hairSalonSchema() {
   return {
@@ -29,20 +29,12 @@ export function hairSalonSchema() {
       latitude: BUSINESS.latitude,
       longitude: BUSINESS.longitude,
     },
-    openingHoursSpecification: [
-      {
-        "@type": "OpeningHoursSpecification",
-        dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
-        opens: "10:00",
-        closes: "21:00",
-      },
-      {
-        "@type": "OpeningHoursSpecification",
-        dayOfWeek: "Sunday",
-        opens: "11:00",
-        closes: "19:00",
-      },
-    ],
+    openingHoursSpecification: HOURS.schema.map((h) => ({
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: h.dayOfWeek,
+      opens: h.opens,
+      closes: h.closes,
+    })),
     aggregateRating: {
       "@type": "AggregateRating",
       ratingValue: BUSINESS.aggregateRating.ratingValue,
@@ -86,6 +78,23 @@ export function breadcrumbSchema(items: { name: string; url: string }[]) {
       position: i + 1,
       name: item.name,
       item: item.url,
+    })),
+  };
+}
+
+type Faq = { q: string; a: string };
+
+export function faqPageSchema(faqs: Faq[] = FAQS_TR) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((f) => ({
+      "@type": "Question",
+      name: f.q,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: f.a,
+      },
     })),
   };
 }

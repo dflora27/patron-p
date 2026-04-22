@@ -2,8 +2,9 @@ import type { Metadata } from "next";
 import PageHero from "@/components/layout/PageHero";
 import PageCta from "@/components/layout/PageCta";
 import PricingSection from "@/components/sections/PricingSection";
-import { buildMeta, SITE_URL } from "@/lib/seo";
-import { breadcrumbSchema } from "@/lib/jsonld";
+import FAQSection from "@/components/sections/FAQSection";
+import { buildMeta, SITE_URL, FAQS_TR } from "@/lib/seo";
+import { breadcrumbSchema, faqPageSchema } from "@/lib/jsonld";
 
 export const metadata: Metadata = buildMeta({
   title: "Fiyat Listesi — Saç, Sakal, Cilt Bakımı & Damat Paketi",
@@ -25,6 +26,10 @@ export default function FiyatlarPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema(crumbs)) }}
       />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqPageSchema(FAQS_TR)) }}
+      />
       <PageHero
         eyebrow="Fiyatlar"
         title="Şeffaf fiyat, kusursuz hizmet."
@@ -37,7 +42,9 @@ export default function FiyatlarPage() {
 
       <PricingSection variant="detailed" />
 
-      <section className="py-16 md:py-20 px-6 bg-surface-muted border-t border-brand-gold/10">
+      <FAQSection faqs={FAQS_TR} />
+
+      <section className="py-16 md:py-20 px-6 bg-surface border-t border-brand-gold/10">
         <div className="max-w-3xl mx-auto text-center">
           <h2 className="font-serif text-2xl md:text-3xl text-foreground mb-4">
             Hediye çeki ve kurumsal paketler

@@ -3,6 +3,7 @@ import { motion, useScroll } from "framer-motion";
 import { useState, useEffect } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import ThemeToggle from "@/components/ui/ThemeToggle";
 import { WHATSAPP } from "@/lib/seo";
 
@@ -58,9 +59,12 @@ export default function Navbar() {
             aria-label="Patron Erkek Kuaförü — anasayfa"
             className="flex items-center cursor-pointer group z-50 shrink-0 pr-4"
           >
-            <img
+            <Image
               src="/images/logo.png"
               alt="Patron Erkek Kuaförü"
+              width={200}
+              height={120}
+              priority
               className={`w-auto object-contain transition-all duration-700 origin-left ${
                 isScrolled ? "h-10 scale-100" : "h-14 scale-110 md:h-20"
               }`}
@@ -150,7 +154,14 @@ export default function Navbar() {
             </button>
           </div>
 
-          <img src="/images/emblem.png" alt="" aria-hidden className="w-16 opacity-30 mb-2 filter grayscale" />
+          <Image
+            src="/images/emblem.png"
+            alt=""
+            aria-hidden
+            width={64}
+            height={64}
+            className="w-16 h-auto opacity-30 mb-2 filter grayscale"
+          />
 
           {NAV_ITEMS.map((item) => (
             <Link

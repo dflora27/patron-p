@@ -1,6 +1,7 @@
 "use client";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 
 const articles = [
@@ -42,12 +43,17 @@ export default function JournalArchive() {
                 className="group cursor-pointer glass p-4 rounded-3xl h-full flex flex-col border border-hairline/10 hover:border-brand-gold/30 hover:bg-white/5 transition-all duration-500 shadow-xl"
               >
                 <div className="w-full aspect-[4/3] overflow-hidden mb-8 rounded-2xl relative border border-hairline/10">
-                  <img src={article.img} alt={article.title} className="w-full h-full object-cover opacity-60 group-hover:opacity-100 group-hover:scale-105 transition-all duration-[1.5s]" />
-                  <div className="absolute inset-0 bg-surface/30 group-hover:bg-transparent transition-colors duration-700"></div>
+                  <Image
+                    src={article.img}
+                    alt={article.title}
+                    fill
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                    className="object-cover opacity-70 group-hover:opacity-100 group-hover:scale-105 transition-all duration-[1.5s]"
+                  />
                 </div>
                 <div className="flex gap-4 font-sans text-[10px] tracking-[0.2em] uppercase text-brand-gold mb-4 pl-2">
                   <span>{isEn && article.category === "Ekipman" ? "Equipment" : article.category}</span>
-                  <span className="text-gray-700">|</span>
+                  <span className="text-foreground-subtle/60" aria-hidden>|</span>
                   <span className="text-foreground-subtle">{article.date}</span>
                 </div>
                 <h3 className="font-serif text-2xl text-foreground group-hover:text-brand-gold transition-colors pl-2 pr-2 leading-relaxed mb-4">

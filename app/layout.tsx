@@ -6,7 +6,10 @@ import Footer from '@/components/layout/Footer'
 import CustomCursor from '@/components/ui/CustomCursor'
 import Preloader from '@/components/ui/Preloader'
 import FloatingWhatsApp from '@/components/ui/FloatingWhatsApp'
+import StickyMobileCta from '@/components/ui/StickyMobileCta'
 import ThemeProvider from '@/components/providers/ThemeProvider'
+import { Analytics } from '@vercel/analytics/next'
+import { SpeedInsights } from '@vercel/speed-insights/next'
 import { SITE_URL, BUSINESS, KEYWORDS_TR } from '@/lib/seo'
 import { hairSalonSchema, websiteSchema } from '@/lib/jsonld'
 
@@ -56,14 +59,14 @@ export const metadata: Metadata = {
     description,
     url: SITE_URL,
     images: [
-      { url: "/images/og-cover.jpg", width: 1200, height: 630, alt: BUSINESS.name },
+      { url: "/images/craftsman.jpg", width: 1200, height: 630, alt: BUSINESS.name },
     ],
   },
   twitter: {
     card: "summary_large_image",
     title,
     description,
-    images: ["/images/og-cover.jpg"],
+    images: ["/images/craftsman.jpg"],
   },
   robots: {
     index: true,
@@ -125,10 +128,13 @@ export default function RootLayout({
           <Preloader />
           <CustomCursor />
           <FloatingWhatsApp />
+          <StickyMobileCta />
           <Navbar />
           {children}
           <Footer />
         </ThemeProvider>
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   )

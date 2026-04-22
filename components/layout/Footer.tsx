@@ -3,7 +3,7 @@ import { usePathname } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import React from "react";
-import { PHONE, BUSINESS } from "@/lib/seo";
+import { PHONE, BUSINESS, HOURS, SOCIALS } from "@/lib/seo";
 
 type FooterLink = { tr: string; en: string; trHref: string; enHref: string };
 
@@ -40,7 +40,7 @@ export default function Footer() {
           </h4>
           <div className="flex gap-4">
             <a
-              href="https://www.instagram.com/patronkuafor/"
+              href={SOCIALS.instagram}
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Instagram"
@@ -53,7 +53,7 @@ export default function Footer() {
               </svg>
             </a>
             <a
-              href="https://www.facebook.com/patronkuafor"
+              href={SOCIALS.facebook}
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Facebook"
@@ -64,7 +64,7 @@ export default function Footer() {
               </svg>
             </a>
             <a
-              href="https://www.google.com/maps?cid=7035655077473899502"
+              href={SOCIALS.googleMaps}
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Google Maps"
@@ -111,7 +111,7 @@ export default function Footer() {
             </li>
             <li className="mt-2">
               <a
-                href="https://www.google.com/maps?cid=7035655077473899502"
+                href={SOCIALS.googleMaps}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-brand-gold hover:underline"
@@ -127,8 +127,14 @@ export default function Footer() {
             {isEn ? "Working Hours" : "Çalışma Saatleri"}
           </h4>
           <ul className="flex flex-col gap-2 font-sans text-sm text-foreground-subtle">
-            <li className="flex justify-between"><span>{isEn ? "Mon–Sat" : "Pzt–Cmt"}</span> <span className="text-foreground">10:00 – 21:00</span></li>
-            <li className="flex justify-between"><span>{isEn ? "Sunday" : "Pazar"}</span> <span className="text-foreground">11:00 – 19:00</span></li>
+            <li className="flex justify-between">
+              <span>{isEn ? HOURS.weekdayEn : HOURS.weekdayTr}</span>
+              <span className="text-foreground">{HOURS.weekday}</span>
+            </li>
+            <li className="flex justify-between">
+              <span>{isEn ? HOURS.sundayEn : HOURS.sundayTr}</span>
+              <span className="text-foreground">{HOURS.sunday}</span>
+            </li>
           </ul>
         </div>
       </div>

@@ -7,6 +7,7 @@ const routes = [
   { path: '/ekibimiz', priority: 0.9, changeFrequency: 'monthly' as const },
   { path: '/hizmetler', priority: 0.9, changeFrequency: 'monthly' as const },
   { path: '/fiyatlar', priority: 0.9, changeFrequency: 'monthly' as const },
+  { path: '/yorumlar', priority: 0.8, changeFrequency: 'weekly' as const },
   { path: '/journal', priority: 0.7, changeFrequency: 'weekly' as const },
 ]
 
@@ -16,6 +17,7 @@ const enRoutes = [
   { path: '/en/team', priority: 0.8, changeFrequency: 'monthly' as const },
   { path: '/en/services', priority: 0.8, changeFrequency: 'monthly' as const },
   { path: '/en/pricing', priority: 0.8, changeFrequency: 'monthly' as const },
+  { path: '/en/reviews', priority: 0.7, changeFrequency: 'weekly' as const },
   { path: '/en/journal', priority: 0.6, changeFrequency: 'weekly' as const },
 ]
 

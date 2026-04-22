@@ -1,5 +1,6 @@
 "use client";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 
 const articles = {
@@ -51,15 +52,22 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
         
         <div className="flex gap-4 font-sans text-[10px] tracking-[0.2em] uppercase text-brand-gold mb-8">
           <span>{isEn && article.category === "Ekipman" ? "Equipment" : article.category}</span>
-          <span className="text-gray-700">|</span>
+          <span className="text-foreground-subtle/60" aria-hidden>|</span>
           <span className="text-foreground-subtle">{article.date}</span>
         </div>
         
         <h1 className="font-serif text-4xl md:text-5xl lg:text-7xl text-foreground mb-16 leading-[1.1]">{content.title}</h1>
         
         <div className="w-full aspect-video rounded-3xl overflow-hidden mb-16 relative glass border border-hairline/20 p-2 shadow-2xl">
-           <div className="w-full h-full rounded-2xl overflow-hidden">
-             <img src={article.img} alt={content.title} className="w-full h-full object-cover grayscale-[0.2]" />
+           <div className="w-full h-full rounded-2xl overflow-hidden relative">
+             <Image
+               src={article.img}
+               alt={content.title}
+               fill
+               priority
+               sizes="(max-width: 1024px) 100vw, 896px"
+               className="object-cover grayscale-[0.2]"
+             />
            </div>
         </div>
         
