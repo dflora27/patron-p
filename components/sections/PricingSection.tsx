@@ -119,7 +119,7 @@ export default function PricingSection() {
           {/* Nail Services */}
           <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.8 }} className="md:w-1/2 bg-[#0c0d0c] p-8 md:p-12 rounded-2xl border border-white/5 relative shadow-xl">
             <h3 className="font-serif text-2xl md:text-3xl text-white mb-6 text-center border-b border-white/10 pb-6 uppercase tracking-widest">
-              Patron NaIl's
+              Patron NaIl&apos;s
             </h3>
             <div className="text-center mb-10">
               <span className="inline-block bg-brand-gold/10 text-brand-gold border border-brand-gold/20 px-4 py-2 rounded-full text-[10px] uppercase tracking-[0.2em] font-bold">

@@ -51,7 +51,7 @@ export default function ReviewsSection() {
               className="bg-[#121212] p-8 border border-white/5 relative"
             >
               <div className="text-brand-gold mb-4 text-xs">★★★★★</div>
-              <p className="font-serif text-lg text-gray-300 italic mb-6 leading-relaxed">"{r.text}"</p>
+              <p className="font-serif text-lg text-gray-300 italic mb-6 leading-relaxed">&ldquo;{r.text}&rdquo;</p>
               <div className="font-sans text-brand-gold/70 text-sm font-bold uppercase tracking-wider">— {r.author}</div>
             </motion.div>
           ))}
