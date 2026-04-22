@@ -18,7 +18,7 @@ export default function BrandsMarquee() {
   return (
     <section id="brands" className="py-24 bg-brand-green/20 overflow-hidden relative border-y border-brand-gold/10">
       <div className="max-w-7xl mx-auto px-6 text-center mb-12">
-        <h3 className="font-serif text-3xl md:text-4xl text-white">
+        <h3 className="font-serif text-3xl md:text-4xl text-foreground">
           {isEn ? "Brands We Use" : "Kullandığımız Markalar"}
         </h3>
         <p className="font-sans text-brand-gold uppercase tracking-[0.2em] text-[10px] md:text-xs mt-4">

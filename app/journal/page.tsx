@@ -13,20 +13,20 @@ export default function JournalArchive() {
   const isEn = pathname.startsWith('/en');
 
   return (
-    <main className="min-h-screen bg-[#090909] pt-40 pb-24 px-6 md:px-12 relative">
+    <main className="min-h-screen bg-surface pt-40 pb-24 px-6 md:px-12 relative">
       <div className="absolute top-0 left-0 w-full h-[50vh] bg-brand-gold/5 blur-[100px] pointer-events-none z-0"></div>
       
       <div className="max-w-7xl mx-auto relative z-10 w-full">
-        <Link href={isEn ? "/en" : "/"} className="text-brand-gold uppercase tracking-widest text-xs mb-16 inline-block border-b border-brand-gold/40 hover:border-brand-gold hover:text-white transition-all pb-1">
+        <Link href={isEn ? "/en" : "/"} className="text-brand-gold uppercase tracking-widest text-xs mb-16 inline-block border-b border-brand-gold/40 hover:border-brand-gold hover:text-foreground transition-all pb-1">
           {isEn ? "← Back to Home" : "← Ana Sayfaya Dön"}
         </Link>
         
         <div className="flex flex-col mb-20 md:w-2/3">
            <motion.h4 initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} className="text-brand-gold tracking-[0.2em] text-xs font-bold uppercase mb-4">THE JOURNAL</motion.h4>
-           <motion.h1 initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="font-serif text-5xl md:text-7xl lg:text-8xl text-white mb-8">
+           <motion.h1 initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="font-serif text-5xl md:text-7xl lg:text-8xl text-foreground mb-8">
              {isEn ? "Editorial & Stories" : "Yazılar ve Hikayeler"}
            </motion.h1>
-           <motion.p initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ delay: 0.2 }} className="text-gray-400 text-base md:text-lg leading-relaxed max-w-xl">
+           <motion.p initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ delay: 0.2 }} className="text-foreground-subtle text-base md:text-lg leading-relaxed max-w-xl">
              {isEn ? "Immerse yourself in nuances and guides to men's style, modern barber culture, and the premium lifestyle." : "Erkek stili, modern berberlik kültürü ve lüks yaşam tarzına dair incelikler ve rehberler."}
            </motion.p>
         </div>
@@ -39,21 +39,21 @@ export default function JournalArchive() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1, duration: 0.8 }}
-                className="group cursor-pointer glass p-4 rounded-3xl h-full flex flex-col border border-white/5 hover:border-brand-gold/30 hover:bg-white/5 transition-all duration-500 shadow-xl"
+                className="group cursor-pointer glass p-4 rounded-3xl h-full flex flex-col border border-hairline/10 hover:border-brand-gold/30 hover:bg-white/5 transition-all duration-500 shadow-xl"
               >
-                <div className="w-full aspect-[4/3] overflow-hidden mb-8 rounded-2xl relative border border-white/5">
+                <div className="w-full aspect-[4/3] overflow-hidden mb-8 rounded-2xl relative border border-hairline/10">
                   <img src={article.img} alt={article.title} className="w-full h-full object-cover opacity-60 group-hover:opacity-100 group-hover:scale-105 transition-all duration-[1.5s]" />
-                  <div className="absolute inset-0 bg-brand-obsidian/30 group-hover:bg-transparent transition-colors duration-700"></div>
+                  <div className="absolute inset-0 bg-surface/30 group-hover:bg-transparent transition-colors duration-700"></div>
                 </div>
                 <div className="flex gap-4 font-sans text-[10px] tracking-[0.2em] uppercase text-brand-gold mb-4 pl-2">
                   <span>{isEn && article.category === "Ekipman" ? "Equipment" : article.category}</span>
                   <span className="text-gray-700">|</span>
-                  <span className="text-gray-500">{article.date}</span>
+                  <span className="text-foreground-subtle">{article.date}</span>
                 </div>
-                <h3 className="font-serif text-2xl text-white group-hover:text-brand-gold transition-colors pl-2 pr-2 leading-relaxed mb-4">
+                <h3 className="font-serif text-2xl text-foreground group-hover:text-brand-gold transition-colors pl-2 pr-2 leading-relaxed mb-4">
                   {isEn ? article.enTitle : article.title}
                 </h3>
-                <p className="text-sm text-gray-400 pl-2 pr-2 font-light leading-relaxed mb-6 flex-grow">
+                <p className="text-sm text-foreground-subtle pl-2 pr-2 font-light leading-relaxed mb-6 flex-grow">
                    {isEn ? article.excerpt_en : article.excerpt_tr}
                 </p>
                 <div className="pl-2 pb-2">

@@ -15,7 +15,7 @@ export default function PhotoGallery() {
   const isEn = pathname.startsWith('/en');
 
   return (
-    <section className="py-24 bg-[#090909] overflow-hidden border-t border-white/5 relative z-10">
+    <section className="py-24 bg-surface overflow-hidden border-t border-hairline/10 relative z-10">
       <div className="absolute top-0 left-0 w-32 h-full bg-gradient-to-r from-[#090909] to-transparent z-20 pointer-events-none"></div>
       <div className="absolute top-0 right-0 w-32 h-full bg-gradient-to-l from-[#090909] to-transparent z-20 pointer-events-none"></div>
       

@@ -1,0 +1,91 @@
+import { BUSINESS, SITE_URL } from "./seo";
+
+export function hairSalonSchema() {
+  return {
+    "@context": "https://schema.org",
+    "@type": ["HairSalon", "LocalBusiness"],
+    "@id": `${SITE_URL}#business`,
+    name: BUSINESS.name,
+    legalName: BUSINESS.legalName,
+    description:
+      "Bornova'nın kalbinde, kendine değer veren erkekler için lüks kuaför lounge. Eski okul berberlik, modern cilt bakımı ve VIP damat paketleri.",
+    url: SITE_URL,
+    telephone: "+90 553 573 7992",
+    image: BUSINESS.image,
+    logo: BUSINESS.logo,
+    priceRange: BUSINESS.priceRange,
+    currenciesAccepted: "TRY",
+    paymentAccepted: "Cash, Credit Card",
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: BUSINESS.streetAddress,
+      addressLocality: BUSINESS.addressLocality,
+      addressRegion: BUSINESS.addressRegion,
+      postalCode: BUSINESS.postalCode,
+      addressCountry: BUSINESS.addressCountry,
+    },
+    geo: {
+      "@type": "GeoCoordinates",
+      latitude: BUSINESS.latitude,
+      longitude: BUSINESS.longitude,
+    },
+    openingHoursSpecification: [
+      {
+        "@type": "OpeningHoursSpecification",
+        dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+        opens: "10:00",
+        closes: "21:00",
+      },
+      {
+        "@type": "OpeningHoursSpecification",
+        dayOfWeek: "Sunday",
+        opens: "11:00",
+        closes: "19:00",
+      },
+    ],
+    aggregateRating: {
+      "@type": "AggregateRating",
+      ratingValue: BUSINESS.aggregateRating.ratingValue,
+      reviewCount: BUSINESS.aggregateRating.reviewCount,
+      bestRating: "5",
+      worstRating: "1",
+    },
+    sameAs: BUSINESS.sameAs,
+    hasOfferCatalog: {
+      "@type": "OfferCatalog",
+      name: "Hizmet Menüsü",
+      itemListElement: [
+        { "@type": "Offer", itemOffered: { "@type": "Service", name: "Saç-Sakal Kesim" }, price: "1600", priceCurrency: "TRY" },
+        { "@type": "Offer", itemOffered: { "@type": "Service", name: "Saç Kesim" }, price: "1100", priceCurrency: "TRY" },
+        { "@type": "Offer", itemOffered: { "@type": "Service", name: "Sakal Kesim" }, price: "500", priceCurrency: "TRY" },
+        { "@type": "Offer", itemOffered: { "@type": "Service", name: "Cilt Bakımı" }, price: "2000", priceCurrency: "TRY" },
+        { "@type": "Offer", itemOffered: { "@type": "Service", name: "Damat Paketi" }, price: "7500", priceCurrency: "TRY" },
+      ],
+    },
+  };
+}
+
+export function websiteSchema() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": `${SITE_URL}#website`,
+    name: BUSINESS.name,
+    url: SITE_URL,
+    inLanguage: ["tr-TR", "en"],
+    publisher: { "@id": `${SITE_URL}#business` },
+  };
+}
+
+export function breadcrumbSchema(items: { name: string; url: string }[]) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: items.map((item, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      name: item.name,
+      item: item.url,
+    })),
+  };
+}

@@ -23,7 +23,7 @@ export default function Preloader() {
           key="preloader"
           initial={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: "-100%", transition: { duration: 1, ease: "easeInOut", delay: 0.1 } }}
-          className="fixed inset-0 z-[99999] bg-[#0c0d0c] flex flex-col items-center justify-center p-4 border-b border-brand-gold"
+          className="fixed inset-0 z-[99999] bg-surface-muted flex flex-col items-center justify-center p-4 border-b border-brand-gold"
         >
           {/* Logo or Path Animation */}
           <div className="w-32 h-32 relative mb-12 flex items-center justify-center">
@@ -51,7 +51,7 @@ export default function Preloader() {
                 transition={{ duration: 1, delay: 0.8, ease: "easeOut" }}
                 className="font-serif text-brand-gold uppercase tracking-[0.4em] text-xs font-bold md:tracking-[0.6em]"
              >
-               <span className="uppercase text-[10px] tracking-[0.4em] font-bold text-gray-500 block mt-4">
+               <span className="uppercase text-[10px] tracking-[0.4em] font-bold text-foreground-subtle block mt-4">
                 {isEn ? "Patron Barbershop" : "Patron Erkek Kuaförü"}
               </span>
              </motion.h2>

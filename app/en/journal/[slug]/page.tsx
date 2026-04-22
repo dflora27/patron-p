@@ -36,35 +36,35 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
   const isEn = pathname.startsWith('/en');
   const article = articles[params.slug as keyof typeof articles];
 
-  if (!article) return <div className="py-40 text-center text-white h-screen">{isEn ? "Article not found." : "Makale bulunamadı."}</div>;
+  if (!article) return <div className="py-40 text-center text-foreground h-screen">{isEn ? "Article not found." : "Makale bulunamadı."}</div>;
 
   const content = isEn ? article.en : article.tr;
 
   return (
-    <article className="min-h-screen bg-[#0c0d0c] pt-40 pb-24 px-6 md:px-12 relative">
+    <article className="min-h-screen bg-surface-muted pt-40 pb-24 px-6 md:px-12 relative">
       <div className="absolute top-0 left-0 w-full h-[50vh] bg-brand-gold/5 blur-[100px] pointer-events-none z-0"></div>
       
       <div className="max-w-4xl mx-auto relative z-10">
-        <Link href={`${isEn ? '/en' : ''}/journal`} className="text-brand-gold uppercase tracking-widest text-xs mb-10 inline-block border-b border-brand-gold/40 hover:border-brand-gold hover:text-white transition-all pb-1">
+        <Link href={`${isEn ? '/en' : ''}/journal`} className="text-brand-gold uppercase tracking-widest text-xs mb-10 inline-block border-b border-brand-gold/40 hover:border-brand-gold hover:text-foreground transition-all pb-1">
           {isEn ? "← Back to Articles" : "← Yazılara Dön"}
         </Link>
         
         <div className="flex gap-4 font-sans text-[10px] tracking-[0.2em] uppercase text-brand-gold mb-8">
           <span>{isEn && article.category === "Ekipman" ? "Equipment" : article.category}</span>
           <span className="text-gray-700">|</span>
-          <span className="text-gray-500">{article.date}</span>
+          <span className="text-foreground-subtle">{article.date}</span>
         </div>
         
-        <h1 className="font-serif text-4xl md:text-5xl lg:text-7xl text-white mb-16 leading-[1.1]">{content.title}</h1>
+        <h1 className="font-serif text-4xl md:text-5xl lg:text-7xl text-foreground mb-16 leading-[1.1]">{content.title}</h1>
         
-        <div className="w-full aspect-video rounded-3xl overflow-hidden mb-16 relative glass border border-white/10 p-2 shadow-2xl">
+        <div className="w-full aspect-video rounded-3xl overflow-hidden mb-16 relative glass border border-hairline/20 p-2 shadow-2xl">
            <div className="w-full h-full rounded-2xl overflow-hidden">
              <img src={article.img} alt={content.title} className="w-full h-full object-cover grayscale-[0.2]" />
            </div>
         </div>
         
-        <div className="prose prose-invert prose-lg max-w-none font-sans font-light leading-relaxed text-gray-400">
-          <p className="text-2xl md:text-3xl text-white font-serif italic mb-12 border-l-2 border-brand-gold pl-8 py-4 leading-normal bg-gradient-to-r from-brand-gold/5 to-transparent">
+        <div className="prose prose-invert prose-lg max-w-none font-sans font-light leading-relaxed text-foreground-subtle">
+          <p className="text-2xl md:text-3xl text-foreground font-serif italic mb-12 border-l-2 border-brand-gold pl-8 py-4 leading-normal bg-gradient-to-r from-brand-gold/5 to-transparent">
             {content.content}
           </p>
           <p className="mb-6">
