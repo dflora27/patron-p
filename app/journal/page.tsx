@@ -40,7 +40,7 @@ export default function JournalArchive() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1, duration: 0.8 }}
-                className="group cursor-pointer glass p-4 rounded-3xl h-full flex flex-col border border-hairline/10 hover:border-brand-gold/30 hover:bg-white/5 transition-all duration-500 shadow-xl"
+                className="group cursor-pointer glass p-4 rounded-3xl h-full flex flex-col border border-hairline/10 hover:border-brand-gold/40 transition-all duration-500 shadow-xl"
               >
                 <div className="w-full aspect-[4/3] overflow-hidden mb-8 rounded-2xl relative border border-hairline/10">
                   <Image

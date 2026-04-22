@@ -10,9 +10,10 @@
   --surface-muted: 240 239 236;
   --surface-inverse: 9 9 9;
 
+  /* Tuned for AA contrast on warm ivory backgrounds */
   --foreground: 18 18 18;
-  --foreground-muted: 64 64 64;
-  --foreground-subtle: 115 115 115;
+  --foreground-muted: 60 60 60;      /* ~10:1 */
+  --foreground-subtle: 95 95 95;     /* ~6:1 — small caps still readable */
 
   --hairline: 0 0 0;                 /* use with /10 alpha */
   --hairline-strong: 0 0 0;          /* with /20 */
