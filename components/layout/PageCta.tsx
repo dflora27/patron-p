@@ -1,5 +1,6 @@
 "use client";
-import { WHATSAPP } from "@/lib/seo";
+import Link from "next/link";
+import { waLink, WA_MESSAGES, PHONE } from "@/lib/seo";
 
 type Props = {
   isEn?: boolean;
@@ -25,20 +26,26 @@ export default function PageCta({
         <p className="font-sans text-foreground-muted text-sm md:text-base max-w-xl mx-auto mb-10 leading-relaxed">
           {isEn ? bodyEn : bodyTr}
         </p>
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-          <a
-            href={`https://wa.me/${WHATSAPP}`}
-            target="_blank"
-            rel="noopener noreferrer"
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
+          <Link
+            href={isEn ? "/en/book" : "/randevu"}
             className="inline-flex items-center gap-3 bg-brand-cinnamon text-white px-10 py-4 rounded-full uppercase text-[11px] tracking-[0.3em] font-bold hover:bg-brand-gold hover:shadow-[0_0_22px_rgba(89,133,101,0.45)] transition-all"
           >
-            {isEn ? "Book via WhatsApp" : "WhatsApp'tan Randevu"}
-          </a>
+            {isEn ? "Book Now" : "Randevu Sihirbazı"}
+          </Link>
           <a
-            href="tel:+905535737992"
+            href={waLink(isEn ? WA_MESSAGES.generalEn : WA_MESSAGES.generalTr)}
+            target="_blank"
+            rel="noopener noreferrer"
             className="inline-flex items-center gap-3 border border-brand-gold/50 text-brand-gold px-10 py-4 rounded-full uppercase text-[11px] tracking-[0.3em] font-bold hover:bg-brand-gold hover:text-white transition-all"
           >
-            {isEn ? "Call Us" : "Bizi Arayın"}
+            {isEn ? "Quick WhatsApp" : "Hızlı WhatsApp"}
+          </a>
+          <a
+            href={`tel:${PHONE}`}
+            className="inline-flex items-center gap-3 border border-hairline/30 text-foreground px-10 py-4 rounded-full uppercase text-[11px] tracking-[0.3em] font-bold hover:border-brand-gold hover:text-brand-gold transition-all"
+          >
+            {isEn ? "Call" : "Ara"}
           </a>
         </div>
       </div>

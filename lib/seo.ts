@@ -11,6 +11,38 @@ export const SOCIALS = {
   googleMaps: "https://www.google.com/maps?cid=7035655077473899502",
 } as const;
 
+/**
+ * Build a wa.me deep-link with a pre-filled message. The whole site
+ * funnels into WhatsApp, so every CTA should use this helper instead
+ * of raw https://wa.me/... URLs.
+ */
+export function waLink(message?: string): string {
+  const base = `https://wa.me/${WHATSAPP}`;
+  if (!message) return base;
+  return `${base}?text=${encodeURIComponent(message)}`;
+}
+
+/**
+ * Pre-filled WhatsApp messages. Two languages so the conversation
+ * starts in the user's language without us having to ask.
+ */
+export const WA_MESSAGES = {
+  generalTr: "Merhaba Patron, randevu almak istiyorum. Müsait olduğunuz en yakın saat nedir?",
+  generalEn: "Hello Patron, I'd like to book an appointment. What's the earliest available time?",
+  serviceTr: (service: string) =>
+    `Merhaba Patron, "${service}" hizmeti için randevu almak istiyorum. Müsaitliğinizi paylaşabilir misiniz?`,
+  serviceEn: (service: string) =>
+    `Hello Patron, I'd like to book "${service}". Could you share your availability?`,
+  groomTr:
+    "Merhaba Patron, damat paketi hakkında bilgi almak ve randevu planlamak istiyorum. Düğün tarihim: ",
+  groomEn:
+    "Hello Patron, I'd like to book the groom package and plan a date. My wedding date: ",
+  customTr: (service: string, day: string, time: string) =>
+    `Merhaba Patron, "${service}" hizmeti için ${day} günü ${time} saatlerinde randevu almak istiyorum. Uygun musunuz?`,
+  customEn: (service: string, day: string, time: string) =>
+    `Hello Patron, I'd like to book "${service}" on ${day} around ${time}. Are you available?`,
+} as const;
+
 // Business hours — single source of truth.
 // Footer & JSON-LD both read from here.
 export const HOURS = {

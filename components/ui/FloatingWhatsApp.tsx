@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { WHATSAPP } from "@/lib/seo";
+import { waLink, WA_MESSAGES } from "@/lib/seo";
 
 const SESSION_KEY = "patron-wa-tooltip-dismissed";
 const OPEN_DELAY_MS = 5000;
@@ -70,7 +70,7 @@ export default function FloatingWhatsApp() {
               {message}
             </p>
             <a
-              href={`https://wa.me/${WHATSAPP}`}
+              href={waLink(isEn ? WA_MESSAGES.generalEn : WA_MESSAGES.generalTr)}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-block text-brand-gold text-[10px] md:text-[11px] uppercase tracking-[0.2em] font-bold hover:underline"
@@ -86,7 +86,7 @@ export default function FloatingWhatsApp() {
       </AnimatePresence>
 
       <motion.a
-        href={`https://wa.me/${WHATSAPP}`}
+        href={waLink(isEn ? WA_MESSAGES.generalEn : WA_MESSAGES.generalTr)}
         target="_blank"
         rel="noopener noreferrer"
         aria-label={isEn ? "Open WhatsApp chat" : "WhatsApp sohbetini aç"}

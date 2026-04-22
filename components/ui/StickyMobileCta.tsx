@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { WHATSAPP, PHONE } from "@/lib/seo";
+import { waLink, WA_MESSAGES, PHONE } from "@/lib/seo";
 
 /**
  * Sticky action bar shown only on mobile after a user has scrolled a bit.
@@ -44,7 +44,7 @@ export default function StickyMobileCta() {
               {isEn ? "Call" : "Ara"}
             </a>
             <a
-              href={`https://wa.me/${WHATSAPP}`}
+              href={waLink(isEn ? WA_MESSAGES.generalEn : WA_MESSAGES.generalTr)}
               target="_blank"
               rel="noopener noreferrer"
               aria-label={isEn ? "Book via WhatsApp" : "WhatsApp'tan randevu al"}

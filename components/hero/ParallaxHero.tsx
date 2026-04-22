@@ -1,8 +1,9 @@
 "use client";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
+import Link from "next/link";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { WHATSAPP, PHONE, SOCIALS } from "@/lib/seo";
+import { PHONE, SOCIALS } from "@/lib/seo";
 
 export default function ParallaxHero() {
   const { scrollY } = useScroll();
@@ -83,14 +84,12 @@ export default function ParallaxHero() {
             transition={{ delay: 0.9, duration: 1 }}
             className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 mt-8"
           >
-            <a
-              href={`https://wa.me/${WHATSAPP}`}
-              target="_blank"
-              rel="noopener noreferrer"
+            <Link
+              href={isEn ? "/en/book" : "/randevu"}
               className="sm:w-auto text-center bg-brand-gold text-white px-10 py-5 uppercase text-xs font-bold tracking-[0.2em] hover:bg-brand-cinnamon transition-colors shadow-lg shadow-brand-gold/20"
             >
               {isEn ? "Book Appointment" : "Randevu Al"}
-            </a>
+            </Link>
             <a
               href={`tel:${PHONE}`}
               className="sm:w-auto text-center bg-white/5 border border-white/20 text-white px-10 py-5 uppercase text-[10px] tracking-widest hover:border-brand-gold hover:text-brand-gold transition-all"

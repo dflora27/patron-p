@@ -5,7 +5,6 @@ import { usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import ThemeToggle from "@/components/ui/ThemeToggle";
-import { WHATSAPP } from "@/lib/seo";
 
 type NavItem = { tr: string; en: string; trHref: string; enHref: string };
 
@@ -101,10 +100,8 @@ export default function Navbar() {
           </nav>
 
           <div className="flex items-center gap-3 md:gap-4 z-50">
-            <a
-              href={`https://wa.me/${WHATSAPP}`}
-              target="_blank"
-              rel="noopener noreferrer"
+            <Link
+              href={isEn ? "/en/book" : "/randevu"}
               className={`hidden md:inline-flex items-center justify-center uppercase font-bold transition-all duration-500 ${
                 isScrolled
                   ? "text-[10px] tracking-[0.2em] bg-brand-cinnamon text-white px-6 py-3 rounded-full hover:bg-brand-gold hover:text-white hover:shadow-[0_0_22px_rgba(89,133,101,0.45)]"
@@ -112,7 +109,7 @@ export default function Navbar() {
               }`}
             >
               {isEn ? "Book Now" : "Rezervasyon"}
-            </a>
+            </Link>
 
             <button
               type="button"
@@ -174,15 +171,13 @@ export default function Navbar() {
             </Link>
           ))}
 
-          <a
-            href={`https://wa.me/${WHATSAPP}`}
-            target="_blank"
-            rel="noopener noreferrer"
+          <Link
+            href={isEn ? "/en/book" : "/randevu"}
             onClick={() => setMenuOpen(false)}
             className="mt-6 bg-brand-cinnamon text-white px-12 py-5 uppercase text-[11px] font-bold tracking-[0.3em] rounded-full shadow-[0_0_30px_rgba(167,77,58,0.3)] hover:bg-brand-gold hover:shadow-[0_0_30px_rgba(89,133,101,0.5)] transition-all"
           >
             {isEn ? "Book Appointment" : "Hemen Randevu Al"}
-          </a>
+          </Link>
         </div>
       </motion.div>
     </>

@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import Link from "next/link";
 import PageHero from "@/components/layout/PageHero";
 import PageCta from "@/components/layout/PageCta";
 import { SERVICES } from "@/lib/content/services";
-import { buildMeta, SITE_URL } from "@/lib/seo";
+import { buildMeta, SITE_URL, waLink, WA_MESSAGES } from "@/lib/seo";
 import { breadcrumbSchema } from "@/lib/jsonld";
 
 export const metadata: Metadata = buildMeta({
@@ -68,8 +69,12 @@ export default function ServicesEnPage() {
                     <dt className="text-[10px] uppercase tracking-widest text-foreground-subtle font-bold mb-1">Duration</dt>
                     <dd className="text-foreground font-sans text-sm">{s.durationEn}</dd>
                   </div>
+                  <div>
+                    <dt className="text-[10px] uppercase tracking-widest text-foreground-subtle font-bold mb-1">Price</dt>
+                    <dd className="text-brand-gold font-serif text-sm">{s.priceEn}</dd>
+                  </div>
                 </dl>
-                <ul className="space-y-2 text-sm text-foreground-muted">
+                <ul className="space-y-2 text-sm text-foreground-muted mb-8">
                   {s.includes.map((item, idx) => (
                     <li key={idx} className="flex items-center gap-3">
                       <span className="w-1.5 h-1.5 rounded-full bg-brand-gold" aria-hidden />
@@ -77,6 +82,22 @@ export default function ServicesEnPage() {
                     </li>
                   ))}
                 </ul>
+                <div className="flex flex-wrap gap-3">
+                  <Link
+                    href={`/en/services/${s.enSlug}`}
+                    className="inline-flex items-center gap-2 text-brand-gold text-[11px] uppercase tracking-[0.25em] font-bold border border-brand-gold/40 px-5 py-3 rounded-full hover:bg-brand-gold hover:text-white transition-colors"
+                  >
+                    View Detail →
+                  </Link>
+                  <a
+                    href={waLink(WA_MESSAGES.serviceEn(s.titleEn))}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 text-white text-[11px] uppercase tracking-[0.25em] font-bold bg-brand-cinnamon px-5 py-3 rounded-full hover:bg-brand-gold transition-colors"
+                  >
+                    Book Now
+                  </a>
+                </div>
               </div>
             </article>
           ))}

@@ -56,7 +56,7 @@ export default function ServicesGrid({ variant = "preview" }: Props) {
               className="group"
             >
               <Link
-                href={servicesHref}
+                href={isEn ? `/en/services/${service.enSlug}` : `/hizmetler/${service.slug}`}
                 className="block focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold rounded-xl"
               >
                 <div className="w-full aspect-[3/4] overflow-hidden bg-surface mb-6 relative border border-brand-gold/5 rounded-xl">
