@@ -1,0 +1,43 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  background-color: #090909; /* brand-obsidian */
+  color: white;
+  overflow-x: hidden;
+}
+
+/* Glassmorphism Classes */
+.glass {
+  background: rgba(18, 18, 18, 0.4);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(197, 160, 89, 0.15);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+}
+
+/* Masks */
+.pill-mask {
+  border-radius: 9999px;
+}
+
+/* Ambient light glows for Level Up */
+.ambient-glow-green {
+  position: absolute;
+  width: 50vw;
+  height: 50vw;
+  background: radial-gradient(circle, rgba(27,48,34,0.4) 0%, rgba(9,9,9,0) 70%);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+}
+.ambient-glow-gold {
+  position: absolute;
+  width: 40vw;
+  height: 40vw;
+  background: radial-gradient(circle, rgba(89,133,101,0.1) 0%, rgba(9,9,9,0) 70%);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+}
