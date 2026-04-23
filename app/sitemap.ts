@@ -1,6 +1,7 @@
 import type { MetadataRoute } from 'next'
 import { SITE_URL } from '@/lib/seo'
 import { SERVICES } from '@/lib/content/services'
+import { ARTICLES } from '@/lib/content/articles'
 
 const routes = [
   { path: '/', priority: 1.0, changeFrequency: 'weekly' as const },
@@ -14,6 +15,11 @@ const routes = [
   ...SERVICES.map((s) => ({
     path: `/hizmetler/${s.slug}`,
     priority: 0.85,
+    changeFrequency: 'monthly' as const,
+  })),
+  ...ARTICLES.map((a) => ({
+    path: `/journal/${a.slug}`,
+    priority: 0.7,
     changeFrequency: 'monthly' as const,
   })),
 ]
@@ -30,6 +36,11 @@ const enRoutes = [
   ...SERVICES.map((s) => ({
     path: `/en/services/${s.enSlug}`,
     priority: 0.75,
+    changeFrequency: 'monthly' as const,
+  })),
+  ...ARTICLES.map((a) => ({
+    path: `/en/journal/${a.slug}`,
+    priority: 0.6,
     changeFrequency: 'monthly' as const,
   })),
 ]

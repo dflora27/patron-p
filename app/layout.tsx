@@ -7,6 +7,7 @@ import CustomCursor from '@/components/ui/CustomCursor'
 import Preloader from '@/components/ui/Preloader'
 import FloatingWhatsApp from '@/components/ui/FloatingWhatsApp'
 import StickyMobileCta from '@/components/ui/StickyMobileCta'
+import DesktopBookingBar from '@/components/ui/DesktopBookingBar'
 import ThemeProvider from '@/components/providers/ThemeProvider'
 import { Analytics } from '@vercel/analytics/next'
 import { SpeedInsights } from '@vercel/speed-insights/next'
@@ -129,6 +130,7 @@ export default function RootLayout({
           <CustomCursor />
           <FloatingWhatsApp />
           <StickyMobileCta />
+          <DesktopBookingBar />
           <Navbar />
           {children}
           <Footer />

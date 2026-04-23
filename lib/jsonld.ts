@@ -84,6 +84,44 @@ export function breadcrumbSchema(items: { name: string; url: string }[]) {
 
 type Faq = { q: string; a: string };
 
+export function articleSchema({
+  headline,
+  description,
+  image,
+  datePublished,
+  url,
+  locale,
+}: {
+  headline: string;
+  description: string;
+  image: string;
+  datePublished: string; // ISO
+  url: string;
+  locale: "tr-TR" | "en-US";
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline,
+    description,
+    image: [image],
+    datePublished,
+    dateModified: datePublished,
+    inLanguage: locale,
+    mainEntityOfPage: { "@type": "WebPage", "@id": url },
+    author: {
+      "@type": "Organization",
+      name: BUSINESS.name,
+      url: SITE_URL,
+    },
+    publisher: {
+      "@type": "Organization",
+      name: BUSINESS.name,
+      logo: { "@type": "ImageObject", url: BUSINESS.logo },
+    },
+  };
+}
+
 export function faqPageSchema(faqs: Faq[] = FAQS_TR) {
   return {
     "@context": "https://schema.org",

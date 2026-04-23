@@ -3,7 +3,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import PageHero from "@/components/layout/PageHero";
+import ReviewsSection from "@/components/sections/ReviewsSection";
 import { SERVICES, getServiceBySlug } from "@/lib/content/services";
+import { reviewsForService } from "@/lib/content/reviews";
 import { buildMeta, SITE_URL, WA_MESSAGES, waLink } from "@/lib/seo";
 import { breadcrumbSchema } from "@/lib/jsonld";
 
@@ -28,6 +30,7 @@ export default function ServiceDetailEnPage({ params }: { params: { slug: string
   if (!service) notFound();
 
   const others = SERVICES.filter((s) => s.enSlug !== service.enSlug);
+  const hasReviews = reviewsForService(service.slug).length > 0;
   const crumbs = [
     { name: "Home", url: `${SITE_URL}/en` },
     { name: "Services", url: `${SITE_URL}/en/services` },
@@ -133,6 +136,15 @@ export default function ServiceDetailEnPage({ params }: { params: { slug: string
           </ol>
         </div>
       </section>
+
+      {hasReviews && (
+        <ReviewsSection
+          variant="detailed"
+          serviceSlug={service.slug}
+          headingTr={`${service.titleTr} için misafir yorumları`}
+          headingEn={`${service.titleEn} guest reviews`}
+        />
+      )}
 
       <section className="py-20 md:py-28 px-6 bg-surface border-t border-brand-gold/10">
         <div className="max-w-6xl mx-auto">
