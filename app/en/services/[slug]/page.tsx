@@ -18,7 +18,7 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
   if (!service) return {};
   return buildMeta({
     title: `${service.titleEn} — ${service.subtitleEn}`,
-    description: `${service.descEn} ${service.durationEn}, from ${service.priceEn}.`,
+    description: `${service.descEn} From ${service.priceEn}.`,
     path: `/en/services/${service.enSlug}`,
     locale: "en",
     image: `${SITE_URL}${service.image}`,
@@ -72,15 +72,9 @@ export default function ServiceDetailEnPage({ params }: { params: { slug: string
               {service.longEn}
             </p>
 
-            <dl className="grid grid-cols-2 gap-x-6 gap-y-4 mb-8 border-y border-hairline/15 py-6">
-              <div>
-                <dt className="text-[10px] uppercase tracking-widest text-foreground-subtle font-bold mb-1">Duration</dt>
-                <dd className="font-serif text-foreground text-xl">{service.durationEn}</dd>
-              </div>
-              <div>
-                <dt className="text-[10px] uppercase tracking-widest text-foreground-subtle font-bold mb-1">Price</dt>
-                <dd className="font-serif text-brand-gold text-xl">{service.priceEn}</dd>
-              </div>
+            <dl className="mb-8 border-y border-hairline/15 py-6 flex items-baseline justify-between gap-4">
+              <dt className="text-[10px] uppercase tracking-widest text-foreground-subtle font-bold">Price</dt>
+              <dd className="font-serif text-brand-gold text-2xl">{service.priceEn}</dd>
             </dl>
 
             <h2 className="text-brand-gold tracking-[0.25em] text-xs uppercase font-bold mb-4">

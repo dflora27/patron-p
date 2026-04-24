@@ -64,14 +64,10 @@ export default function HizmetlerPage() {
                 <p className="text-foreground-muted text-sm md:text-base leading-relaxed mb-6">
                   {s.longTr}
                 </p>
-                <dl className="grid grid-cols-2 gap-4 mb-6">
-                  <div>
-                    <dt className="text-[10px] uppercase tracking-widest text-foreground-subtle font-bold mb-1">Süre</dt>
-                    <dd className="text-foreground font-sans text-sm">{s.durationTr}</dd>
-                  </div>
+                <dl className="mb-6">
                   <div>
                     <dt className="text-[10px] uppercase tracking-widest text-foreground-subtle font-bold mb-1">Fiyat</dt>
-                    <dd className="text-brand-gold font-serif text-sm">{s.priceTr}</dd>
+                    <dd className="text-brand-gold font-serif text-base">{s.priceTr}</dd>
                   </div>
                 </dl>
                 <ul className="space-y-2 text-sm text-foreground-muted mb-8">

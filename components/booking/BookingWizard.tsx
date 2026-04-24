@@ -11,7 +11,6 @@ type BookingService = {
   titleEn: string;
   subtitleTr: string;
   subtitleEn: string;
-  durationMinutes: number;
   priceTL: number;
 };
 
@@ -26,7 +25,6 @@ const BOOKING_SERVICES: BookingService[] = [
     titleEn: "Hair & Beard",
     subtitleTr: "Klasik imza kesim",
     subtitleEn: "Signature cut",
-    durationMinutes: 70,
     priceTL: 1600,
   },
   {
@@ -35,7 +33,6 @@ const BOOKING_SERVICES: BookingService[] = [
     titleEn: "Ferdi Bakır Hair & Beard",
     subtitleTr: "Usta seçimi",
     subtitleEn: "Master's hand",
-    durationMinutes: 90,
     priceTL: 1900,
   },
   {
@@ -44,7 +41,6 @@ const BOOKING_SERVICES: BookingService[] = [
     titleEn: "Manicure",
     subtitleTr: "El bakımı",
     subtitleEn: "Hand care",
-    durationMinutes: 30,
     priceTL: 800,
   },
   {
@@ -53,7 +49,6 @@ const BOOKING_SERVICES: BookingService[] = [
     titleEn: "Pedicure",
     subtitleTr: "Ayak bakımı",
     subtitleEn: "Foot care",
-    durationMinutes: 45,
     priceTL: 1200,
   },
   {
@@ -62,7 +57,6 @@ const BOOKING_SERVICES: BookingService[] = [
     titleEn: "Skin Care",
     subtitleTr: "Ozon buhar ritüeli",
     subtitleEn: "Ozone steam ritual",
-    durationMinutes: 50,
     priceTL: 2000,
   },
   {
@@ -71,7 +65,6 @@ const BOOKING_SERVICES: BookingService[] = [
     titleEn: "Groom Package",
     subtitleTr: "Unutulmaz gün",
     subtitleEn: "The unforgettable day",
-    durationMinutes: 150,
     priceTL: 7500,
   },
 ];
@@ -117,7 +110,7 @@ const COPY = {
   tr: {
     stepOf: (a: number, b: number) => `${a} / ${b}`,
     step1: "Hizmet(ler)i seçin",
-    step1Hint: "Birden fazla seçebilirsiniz — toplam süre ve ücret aşağıda görünür.",
+    step1Hint: "Birden fazla seçebilirsiniz — toplam ücret aşağıda görünür.",
     step2: "Gün seçin",
     step3: "Saat aralığı",
     step4: "Mesajınız hazır",
@@ -127,7 +120,6 @@ const COPY = {
     selectedSvc: "Seçili hizmetler",
     selectedDay: "Gün",
     selectedTime: "Saat aralığı",
-    totalDuration: "Toplam süre",
     totalPrice: "Toplam ücret",
     cta: "WhatsApp'ta Aç",
     edit: "Düzenle",
@@ -139,7 +131,7 @@ const COPY = {
   en: {
     stepOf: (a: number, b: number) => `${a} / ${b}`,
     step1: "Pick service(s)",
-    step1Hint: "You can select more than one — the total duration and price update below.",
+    step1Hint: "You can select more than one — the total price updates below.",
     step2: "Pick a day",
     step3: "Pick a time",
     step4: "Message ready",
@@ -149,7 +141,6 @@ const COPY = {
     selectedSvc: "Services",
     selectedDay: "Day",
     selectedTime: "Time window",
-    totalDuration: "Total duration",
     totalPrice: "Total price",
     cta: "Open WhatsApp",
     edit: "Edit",
@@ -159,20 +150,6 @@ const COPY = {
     noneSelected: "No service selected yet",
   },
 };
-
-function formatDuration(mins: number, locale: "tr" | "en"): string {
-  if (mins <= 0) return "—";
-  const h = Math.floor(mins / 60);
-  const m = mins % 60;
-  if (locale === "tr") {
-    if (h > 0 && m > 0) return `${h} saat ${m} dk`;
-    if (h > 0) return `${h} saat`;
-    return `${m} dk`;
-  }
-  if (h > 0 && m > 0) return `${h}h ${m}m`;
-  if (h > 0) return `${h}h`;
-  return `${m}m`;
-}
 
 function formatPrice(tl: number, locale: "tr" | "en"): string {
   const formatted = new Intl.NumberFormat(locale === "en" ? "en-US" : "tr-TR").format(tl);
@@ -190,7 +167,6 @@ export default function BookingWizard({ locale }: Props) {
   const [slotKey, setSlotKey] = useState<string | null>(null);
 
   const selected = BOOKING_SERVICES.filter((s) => selectedSlugs.includes(s.slug));
-  const totalMinutes = selected.reduce((sum, s) => sum + s.durationMinutes, 0);
   const totalPrice = selected.reduce((sum, s) => sum + s.priceTL, 0);
   const day = dayIndex !== null ? days[dayIndex] : undefined;
   const slot = timeSlots.find((s) => s.key === slotKey);
@@ -211,14 +187,13 @@ export default function BookingWizard({ locale }: Props) {
     const serviceNames = selected
       .map((s) => (locale === "en" ? s.titleEn : s.titleTr))
       .join(" + ");
-    const durationStr = formatDuration(totalMinutes, locale);
     const priceStr = formatPrice(totalPrice, locale);
     const msg =
       locale === "en"
-        ? WA_MESSAGES.customMultiEn(serviceNames, durationStr, priceStr, day.value, slot.range)
-        : WA_MESSAGES.customMultiTr(serviceNames, durationStr, priceStr, day.value, slot.range);
+        ? WA_MESSAGES.customMultiEn(serviceNames, priceStr, day.value, slot.range)
+        : WA_MESSAGES.customMultiTr(serviceNames, priceStr, day.value, slot.range);
     return waLink(msg);
-  }, [selected, day, slot, locale, totalMinutes, totalPrice]);
+  }, [selected, day, slot, locale, totalPrice]);
 
   return (
     <div className="max-w-2xl mx-auto">
@@ -286,8 +261,7 @@ export default function BookingWizard({ locale }: Props) {
                         <p className="font-serif text-foreground text-lg leading-tight mb-2 pr-8">
                           {locale === "en" ? s.titleEn : s.titleTr}
                         </p>
-                        <p className="text-foreground-subtle text-[11px] flex justify-between">
-                          <span>{formatDuration(s.durationMinutes, locale)}</span>
+                        <p className="text-foreground-subtle text-[11px] flex justify-end">
                           <span className="text-brand-gold font-bold">
                             {formatPrice(s.priceTL, locale)}
                           </span>
@@ -304,7 +278,6 @@ export default function BookingWizard({ locale }: Props) {
                 </p>
                 {selected.length > 0 && (
                   <p className="text-foreground text-sm font-serif">
-                    {formatDuration(totalMinutes, locale)} ·{" "}
                     <span className="text-brand-gold">{formatPrice(totalPrice, locale)}</span>
                   </p>
                 )}
@@ -427,7 +400,7 @@ export default function BookingWizard({ locale }: Props) {
                             />
                             <span className="flex-1">{locale === "en" ? s.titleEn : s.titleTr}</span>
                             <span className="text-foreground-subtle text-xs shrink-0">
-                              {formatDuration(s.durationMinutes, locale)} · {formatPrice(s.priceTL, locale)}
+                              {formatPrice(s.priceTL, locale)}
                             </span>
                           </li>
                         ))}
@@ -443,23 +416,13 @@ export default function BookingWizard({ locale }: Props) {
                   </button>
                 </div>
 
-                <div className="grid grid-cols-2 gap-4 pt-4 border-t border-hairline/15">
-                  <div>
-                    <dt className="text-[10px] uppercase tracking-widest text-foreground-subtle font-bold mb-1">
-                      {t.totalDuration}
-                    </dt>
-                    <dd className="font-serif text-foreground text-lg">
-                      {formatDuration(totalMinutes, locale)}
-                    </dd>
-                  </div>
-                  <div className="text-right">
-                    <dt className="text-[10px] uppercase tracking-widest text-foreground-subtle font-bold mb-1">
-                      {t.totalPrice}
-                    </dt>
-                    <dd className="font-serif text-brand-gold text-lg">
-                      {formatPrice(totalPrice, locale)}
-                    </dd>
-                  </div>
+                <div className="pt-4 border-t border-hairline/15 flex items-center justify-between gap-4">
+                  <dt className="text-[10px] uppercase tracking-widest text-foreground-subtle font-bold">
+                    {t.totalPrice}
+                  </dt>
+                  <dd className="font-serif text-brand-gold text-xl">
+                    {formatPrice(totalPrice, locale)}
+                  </dd>
                 </div>
 
                 <Row

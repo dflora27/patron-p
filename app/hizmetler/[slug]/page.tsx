@@ -18,7 +18,7 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
   if (!service) return {};
   return buildMeta({
     title: `${service.titleTr} — ${service.subtitleTr}`,
-    description: `${service.descTr} ${service.durationTr}, ${service.priceTr}'den.`,
+    description: `${service.descTr} ${service.priceTr}'den.`,
     path: `/hizmetler/${service.slug}`,
     locale: "tr",
     image: `${SITE_URL}${service.image}`,
@@ -72,15 +72,9 @@ export default function HizmetDetayPage({ params }: { params: { slug: string } }
               {service.longTr}
             </p>
 
-            <dl className="grid grid-cols-2 gap-x-6 gap-y-4 mb-8 border-y border-hairline/15 py-6">
-              <div>
-                <dt className="text-[10px] uppercase tracking-widest text-foreground-subtle font-bold mb-1">Süre</dt>
-                <dd className="font-serif text-foreground text-xl">{service.durationTr}</dd>
-              </div>
-              <div>
-                <dt className="text-[10px] uppercase tracking-widest text-foreground-subtle font-bold mb-1">Fiyat</dt>
-                <dd className="font-serif text-brand-gold text-xl">{service.priceTr}</dd>
-              </div>
+            <dl className="mb-8 border-y border-hairline/15 py-6 flex items-baseline justify-between gap-4">
+              <dt className="text-[10px] uppercase tracking-widest text-foreground-subtle font-bold">Fiyat</dt>
+              <dd className="font-serif text-brand-gold text-2xl">{service.priceTr}</dd>
             </dl>
 
             <h2 className="text-brand-gold tracking-[0.25em] text-xs uppercase font-bold mb-4">

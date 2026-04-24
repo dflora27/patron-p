@@ -10,8 +10,6 @@ export type Service = {
   descEn: string;
   longTr: string;
   longEn: string;
-  durationTr: string;
-  durationEn: string;
   priceTr: string;
   priceEn: string;
   includes: { tr: string; en: string }[];
@@ -33,8 +31,6 @@ export const SERVICES: Service[] = [
       "Patron imzalı kesim; detaylı yüz analizi, saç doku okuması ve Mizutani makaslarla şekillendirilmiş scissor-over-comb geçişlerinden oluşur. Sakal, konik jilet traşı, sıcak havlu ve after-shave ritüeli ile taçlanır.",
     longEn:
       "A Patron-signed cut starts with face analysis and texture reading, then moves into Mizutani scissor-over-comb transitions. The beard is finished with conical razor work, hot-towel therapy and an after-shave ritual.",
-    durationTr: "60–75 dakika",
-    durationEn: "60–75 minutes",
     priceTr: "1.600 TL",
     priceEn: "1,600 TL",
     includes: [
@@ -65,8 +61,6 @@ export const SERVICES: Service[] = [
       "Sıcak mineral banyosu, ölü deri temizliği, tırnak şekillendirme ve nemlendirici masaj. İsteğe bağlı kalıcı oje, jel güçlendirme veya klasik finiş.",
     longEn:
       "Warm mineral soak, dead-skin treatment, nail shaping and a hydrating massage. Optional permanent polish, gel strengthening or classic finish.",
-    durationTr: "45 dakika",
-    durationEn: "45 minutes",
     priceTr: "800 TL'den",
     priceEn: "from 800 TL",
     includes: [
@@ -97,8 +91,6 @@ export const SERVICES: Service[] = [
       "Cildin dokusuna özel enzim peeling, ozon buhar, pore extraction ve seçilmiş maskelerden oluşan 5 aşamalı ritüel. Cildinizi, tıraşla birlikte ya da tek başına yeniler.",
     longEn:
       "A 5-step ritual: enzymatic peel, ozone steam, pore extraction and curated masks — tuned to your skin type. Pairs with a cut or stands alone as a reset.",
-    durationTr: "50 dakika",
-    durationEn: "50 minutes",
     priceTr: "2.000 TL",
     priceEn: "2,000 TL",
     includes: [
@@ -129,8 +121,6 @@ export const SERVICES: Service[] = [
       "Saç tasarımı, cilt bakımı, manikür ve jilet tıraşı tek oturumda. Şampanya servisi ve özel müzik seçkisi eşliğinde, eşinizle gelirsiniz; misafirimiz olursunuz.",
     longEn:
       "Hair design, skin care, manicure and razor shave in a single session. With champagne service and a curated playlist — arrive as a couple, leave as our guests.",
-    durationTr: "2,5 saat",
-    durationEn: "2.5 hours",
     priceTr: "7.500 TL",
     priceEn: "7,500 TL",
     includes: [
