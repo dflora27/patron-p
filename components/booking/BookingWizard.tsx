@@ -20,20 +20,36 @@ type BookingService = {
  */
 const BOOKING_SERVICES: BookingService[] = [
   {
-    slug: "sac-sakal",
-    titleTr: "Saç & Sakal",
-    titleEn: "Hair & Beard",
+    slug: "sac",
+    titleTr: "Saç Kesim",
+    titleEn: "Haircut",
     subtitleTr: "Klasik imza kesim",
     subtitleEn: "Signature cut",
-    priceTL: 1600,
+    priceTL: 1100,
   },
   {
-    slug: "ferdi-bakir-sac-sakal",
-    titleTr: "Ferdi Bakır Saç & Sakal",
-    titleEn: "Ferdi Bakır Hair & Beard",
+    slug: "sakal",
+    titleTr: "Sakal Kesim",
+    titleEn: "Beard Trim",
+    subtitleTr: "Konik jilet ritüeli",
+    subtitleEn: "Conical razor ritual",
+    priceTL: 500,
+  },
+  {
+    slug: "ferdi-bakir-sac",
+    titleTr: "Ferdi Bakır Saç Kesim",
+    titleEn: "Ferdi Bakır Haircut",
     subtitleTr: "Usta seçimi",
     subtitleEn: "Master's hand",
-    priceTL: 1900,
+    priceTL: 1300,
+  },
+  {
+    slug: "ferdi-bakir-sakal",
+    titleTr: "Ferdi Bakır Sakal Kesim",
+    titleEn: "Ferdi Bakır Beard Trim",
+    subtitleTr: "Usta seçimi",
+    subtitleEn: "Master's hand",
+    priceTL: 600,
   },
   {
     slug: "manikur",
@@ -94,16 +110,16 @@ function nextDays(n: number, locale: "tr" | "en"): Day[] {
 
 const TIME_SLOTS_TR = [
   { key: "morning", label: "Sabah", range: "10:00 – 12:00" },
-  { key: "midday", label: "Öğle", range: "12:00 – 15:00" },
-  { key: "afternoon", label: "Öğleden Sonra", range: "15:00 – 18:00" },
-  { key: "evening", label: "Akşam", range: "18:00 – 21:00" },
+  { key: "midday", label: "Öğle", range: "12:00 – 14:00" },
+  { key: "afternoon", label: "Öğleden Sonra", range: "14:00 – 17:00" },
+  { key: "evening", label: "Akşam", range: "17:00 – 19:00" },
 ];
 
 const TIME_SLOTS_EN = [
   { key: "morning", label: "Morning", range: "10:00 – 12:00" },
-  { key: "midday", label: "Midday", range: "12:00 – 15:00" },
-  { key: "afternoon", label: "Afternoon", range: "15:00 – 18:00" },
-  { key: "evening", label: "Evening", range: "18:00 – 21:00" },
+  { key: "midday", label: "Midday", range: "12:00 – 14:00" },
+  { key: "afternoon", label: "Afternoon", range: "14:00 – 17:00" },
+  { key: "evening", label: "Evening", range: "17:00 – 19:00" },
 ];
 
 const COPY = {

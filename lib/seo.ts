@@ -52,7 +52,7 @@ export const WA_MESSAGES = {
 export const HOURS = {
   weekdayTr: "Pzt – Cmt",
   weekdayEn: "Mon – Sat",
-  weekday: "10:00 – 21:00",
+  weekday: "10:00 – 19:00",
   sundayTr: "Pazar",
   sundayEn: "Sunday",
   sunday: "11:00 – 19:00",
@@ -61,7 +61,7 @@ export const HOURS = {
     {
       dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
       opens: "10:00",
-      closes: "21:00",
+      closes: "19:00",
     },
     {
       dayOfWeek: "Sunday",
