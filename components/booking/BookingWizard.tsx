@@ -1,10 +1,80 @@
 "use client";
 import { useMemo, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { SERVICES } from "@/lib/content/services";
 import { waLink, WA_MESSAGES } from "@/lib/seo";
 
 type Props = { locale: "tr" | "en" };
+
+type BookingService = {
+  slug: string;
+  titleTr: string;
+  titleEn: string;
+  subtitleTr: string;
+  subtitleEn: string;
+  durationMinutes: number;
+  priceTL: number;
+};
+
+/**
+ * Services available in the booking wizard. Multi-select: the guest can
+ * combine hair, nails, skin care and the groom package in a single visit.
+ */
+const BOOKING_SERVICES: BookingService[] = [
+  {
+    slug: "sac-sakal",
+    titleTr: "Saç & Sakal",
+    titleEn: "Hair & Beard",
+    subtitleTr: "Klasik imza kesim",
+    subtitleEn: "Signature cut",
+    durationMinutes: 70,
+    priceTL: 1600,
+  },
+  {
+    slug: "ferdi-bakir-sac-sakal",
+    titleTr: "Ferdi Bakır Saç & Sakal",
+    titleEn: "Ferdi Bakır Hair & Beard",
+    subtitleTr: "Usta seçimi",
+    subtitleEn: "Master's hand",
+    durationMinutes: 90,
+    priceTL: 1900,
+  },
+  {
+    slug: "manikur",
+    titleTr: "Manikür",
+    titleEn: "Manicure",
+    subtitleTr: "El bakımı",
+    subtitleEn: "Hand care",
+    durationMinutes: 30,
+    priceTL: 800,
+  },
+  {
+    slug: "pedikur",
+    titleTr: "Pedikür",
+    titleEn: "Pedicure",
+    subtitleTr: "Ayak bakımı",
+    subtitleEn: "Foot care",
+    durationMinutes: 45,
+    priceTL: 1200,
+  },
+  {
+    slug: "cilt-bakimi",
+    titleTr: "Cilt Bakımı",
+    titleEn: "Skin Care",
+    subtitleTr: "Ozon buhar ritüeli",
+    subtitleEn: "Ozone steam ritual",
+    durationMinutes: 50,
+    priceTL: 2000,
+  },
+  {
+    slug: "damat-paketi",
+    titleTr: "Damat Paketi",
+    titleEn: "Groom Package",
+    subtitleTr: "Unutulmaz gün",
+    subtitleEn: "The unforgettable day",
+    durationMinutes: 150,
+    priceTL: 7500,
+  },
+];
 
 type Day = { label: string; value: string; date: Date };
 
@@ -46,43 +116,68 @@ const TIME_SLOTS_EN = [
 const COPY = {
   tr: {
     stepOf: (a: number, b: number) => `${a} / ${b}`,
-    step1: "Hizmet seçin",
+    step1: "Hizmet(ler)i seçin",
+    step1Hint: "Birden fazla seçebilirsiniz — toplam süre ve ücret aşağıda görünür.",
     step2: "Gün seçin",
     step3: "Saat aralığı",
     step4: "Mesajınız hazır",
     step4Lead: "Aşağıdaki buton sizi WhatsApp'a yönlendirir — mesajınız şimdiden hazırlanmış halde.",
     back: "Geri",
     next: "Devam",
-    duration: "Süre",
-    price: "Fiyat",
-    selectedSvc: "Seçili hizmet",
+    selectedSvc: "Seçili hizmetler",
     selectedDay: "Gün",
     selectedTime: "Saat aralığı",
+    totalDuration: "Toplam süre",
+    totalPrice: "Toplam ücret",
     cta: "WhatsApp'ta Aç",
     edit: "Düzenle",
     todayBadge: "Bugün",
     tomorrowBadge: "Yarın",
+    count: (n: number) => `${n} hizmet seçili`,
+    noneSelected: "Henüz hizmet seçmediniz",
   },
   en: {
     stepOf: (a: number, b: number) => `${a} / ${b}`,
-    step1: "Pick a service",
+    step1: "Pick service(s)",
+    step1Hint: "You can select more than one — the total duration and price update below.",
     step2: "Pick a day",
     step3: "Pick a time",
     step4: "Message ready",
     step4Lead: "The button below opens WhatsApp — your message is pre-filled.",
     back: "Back",
     next: "Continue",
-    duration: "Duration",
-    price: "Price",
-    selectedSvc: "Service",
+    selectedSvc: "Services",
     selectedDay: "Day",
     selectedTime: "Time window",
+    totalDuration: "Total duration",
+    totalPrice: "Total price",
     cta: "Open WhatsApp",
     edit: "Edit",
     todayBadge: "Today",
     tomorrowBadge: "Tomorrow",
+    count: (n: number) => `${n} selected`,
+    noneSelected: "No service selected yet",
   },
 };
+
+function formatDuration(mins: number, locale: "tr" | "en"): string {
+  if (mins <= 0) return "—";
+  const h = Math.floor(mins / 60);
+  const m = mins % 60;
+  if (locale === "tr") {
+    if (h > 0 && m > 0) return `${h} saat ${m} dk`;
+    if (h > 0) return `${h} saat`;
+    return `${m} dk`;
+  }
+  if (h > 0 && m > 0) return `${h}h ${m}m`;
+  if (h > 0) return `${h}h`;
+  return `${m}m`;
+}
+
+function formatPrice(tl: number, locale: "tr" | "en"): string {
+  const formatted = new Intl.NumberFormat(locale === "en" ? "en-US" : "tr-TR").format(tl);
+  return `${formatted} TL`;
+}
 
 export default function BookingWizard({ locale }: Props) {
   const t = COPY[locale];
@@ -90,30 +185,40 @@ export default function BookingWizard({ locale }: Props) {
   const days = useMemo(() => nextDays(7, locale), [locale]);
 
   const [step, setStep] = useState(1);
-  const [serviceSlug, setServiceSlug] = useState<string | null>(null);
+  const [selectedSlugs, setSelectedSlugs] = useState<string[]>([]);
   const [dayIndex, setDayIndex] = useState<number | null>(null);
   const [slotKey, setSlotKey] = useState<string | null>(null);
 
-  const service = SERVICES.find((s) =>
-    locale === "en" ? s.enSlug === serviceSlug : s.slug === serviceSlug,
-  );
+  const selected = BOOKING_SERVICES.filter((s) => selectedSlugs.includes(s.slug));
+  const totalMinutes = selected.reduce((sum, s) => sum + s.durationMinutes, 0);
+  const totalPrice = selected.reduce((sum, s) => sum + s.priceTL, 0);
   const day = dayIndex !== null ? days[dayIndex] : undefined;
   const slot = timeSlots.find((s) => s.key === slotKey);
 
   const canContinue =
-    (step === 1 && !!service) ||
+    (step === 1 && selected.length > 0) ||
     (step === 2 && !!day) ||
     (step === 3 && !!slot);
 
+  const toggleService = (slug: string) => {
+    setSelectedSlugs((prev) =>
+      prev.includes(slug) ? prev.filter((s) => s !== slug) : [...prev, slug],
+    );
+  };
+
   const waHref = useMemo(() => {
-    if (!service || !day || !slot) return "";
-    const serviceName = locale === "en" ? service.titleEn : service.titleTr;
+    if (selected.length === 0 || !day || !slot) return "";
+    const serviceNames = selected
+      .map((s) => (locale === "en" ? s.titleEn : s.titleTr))
+      .join(" + ");
+    const durationStr = formatDuration(totalMinutes, locale);
+    const priceStr = formatPrice(totalPrice, locale);
     const msg =
       locale === "en"
-        ? WA_MESSAGES.customEn(serviceName, day.value, slot.range)
-        : WA_MESSAGES.customTr(serviceName, day.value, slot.range);
+        ? WA_MESSAGES.customMultiEn(serviceNames, durationStr, priceStr, day.value, slot.range)
+        : WA_MESSAGES.customMultiTr(serviceNames, durationStr, priceStr, day.value, slot.range);
     return waLink(msg);
-  }, [service, day, slot, locale]);
+  }, [selected, day, slot, locale, totalMinutes, totalPrice]);
 
   return (
     <div className="max-w-2xl mx-auto">
@@ -133,7 +238,7 @@ export default function BookingWizard({ locale }: Props) {
         </div>
       </div>
 
-      <div className="bg-surface-elevated border border-hairline/10 rounded-3xl p-6 md:p-10 shadow-xl min-h-[360px]">
+      <div className="bg-surface-elevated border border-hairline/10 rounded-3xl p-6 md:p-10 shadow-xl min-h-[400px]">
         <AnimatePresence mode="wait">
           {step === 1 && (
             <motion.div
@@ -143,32 +248,48 @@ export default function BookingWizard({ locale }: Props) {
               exit={{ opacity: 0, x: -20 }}
               transition={{ duration: 0.3 }}
             >
-              <h2 className="font-serif text-2xl md:text-3xl text-foreground mb-6">{t.step1}</h2>
+              <h2 className="font-serif text-2xl md:text-3xl text-foreground mb-2">{t.step1}</h2>
+              <p className="text-foreground-subtle text-sm mb-6">{t.step1Hint}</p>
+
               <ul className="grid sm:grid-cols-2 gap-3">
-                {SERVICES.map((s) => {
-                  const isActive = serviceSlug === (locale === "en" ? s.enSlug : s.slug);
+                {BOOKING_SERVICES.map((s) => {
+                  const isActive = selectedSlugs.includes(s.slug);
                   return (
                     <li key={s.slug}>
                       <button
                         type="button"
-                        onClick={() => setServiceSlug(locale === "en" ? s.enSlug : s.slug)}
+                        onClick={() => toggleService(s.slug)}
                         aria-pressed={isActive}
-                        className={`w-full text-left p-4 rounded-xl border transition-colors ${
+                        className={`w-full text-left p-4 rounded-xl border transition-colors relative ${
                           isActive
                             ? "border-brand-gold bg-brand-gold/10"
                             : "border-hairline/15 hover:border-brand-gold/50"
                         }`}
                       >
-                        <p className="text-brand-gold text-[10px] uppercase tracking-[0.2em] font-bold mb-1">
+                        <span
+                          aria-hidden
+                          className={`absolute top-3 right-3 w-5 h-5 rounded border flex items-center justify-center transition-colors ${
+                            isActive
+                              ? "bg-brand-gold border-brand-gold"
+                              : "border-hairline/30"
+                          }`}
+                        >
+                          {isActive && (
+                            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round">
+                              <polyline points="20 6 9 17 4 12" />
+                            </svg>
+                          )}
+                        </span>
+                        <p className="text-brand-gold text-[10px] uppercase tracking-[0.2em] font-bold mb-1 pr-8">
                           {locale === "en" ? s.subtitleEn : s.subtitleTr}
                         </p>
-                        <p className="font-serif text-foreground text-lg leading-tight mb-2">
+                        <p className="font-serif text-foreground text-lg leading-tight mb-2 pr-8">
                           {locale === "en" ? s.titleEn : s.titleTr}
                         </p>
                         <p className="text-foreground-subtle text-[11px] flex justify-between">
-                          <span>{locale === "en" ? s.durationEn : s.durationTr}</span>
+                          <span>{formatDuration(s.durationMinutes, locale)}</span>
                           <span className="text-brand-gold font-bold">
-                            {locale === "en" ? s.priceEn : s.priceTr}
+                            {formatPrice(s.priceTL, locale)}
                           </span>
                         </p>
                       </button>
@@ -176,6 +297,18 @@ export default function BookingWizard({ locale }: Props) {
                   );
                 })}
               </ul>
+
+              <div className="mt-6 pt-5 border-t border-hairline/15 flex items-center justify-between gap-4">
+                <p className="text-foreground-subtle text-xs uppercase tracking-[0.2em] font-bold">
+                  {selected.length === 0 ? t.noneSelected : t.count(selected.length)}
+                </p>
+                {selected.length > 0 && (
+                  <p className="text-foreground text-sm font-serif">
+                    {formatDuration(totalMinutes, locale)} ·{" "}
+                    <span className="text-brand-gold">{formatPrice(totalPrice, locale)}</span>
+                  </p>
+                )}
+              </div>
             </motion.div>
           )}
 
@@ -262,7 +395,7 @@ export default function BookingWizard({ locale }: Props) {
             </motion.div>
           )}
 
-          {step === 4 && service && day && slot && (
+          {step === 4 && selected.length > 0 && day && slot && (
             <motion.div
               key="step-4"
               initial={{ opacity: 0, y: 10 }}
@@ -275,14 +408,66 @@ export default function BookingWizard({ locale }: Props) {
                 {t.step4Lead}
               </p>
 
-              <dl className="space-y-3 mb-10 border-y border-hairline/15 py-6">
+              <dl className="space-y-4 mb-8 border-y border-hairline/15 py-6">
+                <div className="flex items-start justify-between gap-4">
+                  <div className="flex-1 min-w-0">
+                    <dt className="text-[10px] uppercase tracking-widest text-foreground-subtle font-bold mb-2">
+                      {t.selectedSvc}
+                    </dt>
+                    <dd>
+                      <ul className="space-y-1">
+                        {selected.map((s) => (
+                          <li
+                            key={s.slug}
+                            className="font-serif text-foreground text-base md:text-lg flex items-center gap-3"
+                          >
+                            <span
+                              aria-hidden
+                              className="w-1.5 h-1.5 rounded-full bg-brand-gold shrink-0"
+                            />
+                            <span className="flex-1">{locale === "en" ? s.titleEn : s.titleTr}</span>
+                            <span className="text-foreground-subtle text-xs shrink-0">
+                              {formatDuration(s.durationMinutes, locale)} · {formatPrice(s.priceTL, locale)}
+                            </span>
+                          </li>
+                        ))}
+                      </ul>
+                    </dd>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => setStep(1)}
+                    className="text-brand-gold text-[10px] uppercase tracking-[0.25em] font-bold hover:text-foreground transition-colors shrink-0"
+                  >
+                    {t.edit}
+                  </button>
+                </div>
+
+                <div className="grid grid-cols-2 gap-4 pt-4 border-t border-hairline/15">
+                  <div>
+                    <dt className="text-[10px] uppercase tracking-widest text-foreground-subtle font-bold mb-1">
+                      {t.totalDuration}
+                    </dt>
+                    <dd className="font-serif text-foreground text-lg">
+                      {formatDuration(totalMinutes, locale)}
+                    </dd>
+                  </div>
+                  <div className="text-right">
+                    <dt className="text-[10px] uppercase tracking-widest text-foreground-subtle font-bold mb-1">
+                      {t.totalPrice}
+                    </dt>
+                    <dd className="font-serif text-brand-gold text-lg">
+                      {formatPrice(totalPrice, locale)}
+                    </dd>
+                  </div>
+                </div>
+
                 <Row
-                  label={t.selectedSvc}
-                  value={locale === "en" ? service.titleEn : service.titleTr}
-                  onEdit={() => setStep(1)}
+                  label={t.selectedDay}
+                  value={day.value}
+                  onEdit={() => setStep(2)}
                   editLabel={t.edit}
                 />
-                <Row label={t.selectedDay} value={day.value} onEdit={() => setStep(2)} editLabel={t.edit} />
                 <Row
                   label={t.selectedTime}
                   value={`${slot.label} · ${slot.range}`}

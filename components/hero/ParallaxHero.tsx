@@ -58,13 +58,13 @@ export default function ParallaxHero() {
             transition={{ delay: 0.3, duration: 1 }}
             className="font-serif text-5xl md:text-7xl lg:text-8xl text-white leading-[1.1] mb-8"
           >
-            {isEn ? "Gentlemen" : "Kendine"}
+            {isEn ? "Those Who" : "BAKIMINI"}
             <br className="hidden md:block" />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-gold to-[#A2C7AD] italic pr-2">
-              {isEn ? "Who Care" : "Değer Verenler"}
+              {isEn ? "Never Skip Care" : "AKSATMAYANLAR"}
             </span>
             <br />
-            {isEn ? "Are Here." : "Burada."}
+            {isEn ? "Are Here." : "BURADA."}
           </motion.h1>
 
           <motion.p
@@ -74,8 +74,8 @@ export default function ParallaxHero() {
             className="font-sans text-white/70 text-sm md:text-base max-w-xl font-light leading-relaxed"
           >
             {isEn
-              ? "Prestigious beginnings in Izmir's heart. More than just a haircut — a sanctuary for modern gentlemen where heritage meets contemporary grooming."
-              : "İzmir'in kalbinde, zamansız bir kişisel bakım deneyimi. Yalnızca bir saç kesimi değil, modern beyefendiler için özel bir kaçış noktası."}
+              ? "A timeless personal grooming experience in the heart of Izmir. Not just a haircut — a private retreat where you shed the day's chaos and rediscover your own style."
+              : "İzmir'in kalbinde zamansız bir kişisel bakım deneyimi. Yalnızca bir saç kesimi değil, günün kaosundan arınıp, kendi tarzını yeniden keşfettiğin özel bir mola alanı."}
           </motion.p>
 
           <motion.div

@@ -41,6 +41,10 @@ export const WA_MESSAGES = {
     `Merhaba Patron, "${service}" hizmeti için ${day} günü ${time} saatlerinde randevu almak istiyorum. Uygun musunuz?`,
   customEn: (service: string, day: string, time: string) =>
     `Hello Patron, I'd like to book "${service}" on ${day} around ${time}. Are you available?`,
+  customMultiTr: (services: string, duration: string, price: string, day: string, time: string) =>
+    `Merhaba Patron, şu hizmetler için randevu almak istiyorum: ${services}. Toplam süre ~${duration}, toplam ${price}. Gün: ${day}, saat aralığı: ${time}. Müsaitliğinizi paylaşabilir misiniz?`,
+  customMultiEn: (services: string, duration: string, price: string, day: string, time: string) =>
+    `Hello Patron, I'd like to book: ${services}. Approx total ${duration}, ${price}. Day: ${day}, time window: ${time}. Could you share your availability?`,
 } as const;
 
 // Business hours — single source of truth.

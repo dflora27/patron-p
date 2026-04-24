@@ -44,22 +44,22 @@ export default function AboutUs() {
           </div>
 
           <h2 className="font-serif text-3xl md:text-5xl text-foreground leading-tight mb-8 relative z-10">
-            {isEn ? "You are not a customer here," : "Burada müşteri yok,"}<br />
+            {isEn ? "Here, quality isn't a choice —" : "Burada kalite bir seçenek değil,"}<br />
             <span className="text-brand-gold italic">
-              {isEn ? "you are a guest." : "siz bir misafirsiniz."}
+              {isEn ? "it's the standard." : "standarttır."}
             </span>
           </h2>
 
           <div className="font-sans text-foreground-muted space-y-5 text-sm md:text-base leading-relaxed font-light relative z-10">
             <p>
               {isEn
-                ? "At Patron, we leave traditional salon experiences at the door. From the moment you step in, we embark on a journey designed exclusively for your personal grooming."
-                : "Patron'da, sıradan salon deneyimlerini kapının dışında bırakıyoruz. İçeri adım attığınız andan itibaren, tamamen sizin kişisel bakımınıza odaklanan bir serüven başlatıyoruz."}
+                ? "Everyone who walks through our door steps into a flawless experience, far from the ordinary. We turn your personal grooming from a chore into a level that outpaces your expectations."
+                : "Kapımızdan içeri giren herkes, sıradanlıktan uzak, kusursuz bir deneyime adım atar. Kişisel bakımınızı bir zorunluluk olmaktan çıkarıp, beklentilerinizi aşan bir seviyeye taşıyoruz."}
             </p>
             <p>
               {isEn
-                ? "Accompanied by custom playlists, signature coffees, and our expert team, time slows down and your comfort takes precedence."
-                : "Özel seçilmiş müzikler, imza kahvelerimiz ve uzman kadromuz eşliğinde; zaman yavaşlar ve konforunuz merkeze alınır."}
+                ? "With premium coffees, soul-soothing rhythms and the touches of our expert team, we renew not just your look — your energy, head to toe."
+                : "Premium kahvelerimiz, ruhu dinlendiren ritimlerimiz ve alanında uzman ekibimizin dokunuşlarıyla; sadece görünümünüzü değil, enerjinizi de baştan aşağı yeniliyoruz."}
             </p>
           </div>
 
@@ -67,7 +67,7 @@ export default function AboutUs() {
             href={aboutHref}
             className="relative z-10 inline-flex items-center gap-3 mt-8 text-brand-gold text-[11px] uppercase tracking-[0.3em] font-bold hover:text-foreground transition-colors"
           >
-            {isEn ? "Read Our Story" : "Hikayemizi Oku"}
+            {isEn ? "Discover the Experience" : "Deneyimi Keşfet"}
             <span aria-hidden>→</span>
           </Link>
         </motion.div>
